@@ -21,6 +21,7 @@ from datetime import datetime
 from rqalpha.core.events import EVENT, Event
 from rqalpha.utils.rq_json import convert_dict_to_json, convert_json_to_dict
 from rqalpha.utils.logger import system_log
+from tqdm import tqdm
 
 
 class Executor(object):
@@ -36,7 +37,8 @@ class Executor(object):
 
     def run(self, bar_dict):
         conf = self._env.config.base
-        for event in self._env.event_source.events(conf.start_date, conf.end_date, conf.frequency):
+        events = list(self._env.event_source.events(conf.start_date, conf.end_date, conf.frequency))
+        for event in tqdm(events):
             if event.event_type == EVENT.TICK:
                 if self._ensure_before_trading(event):
                     self._split_and_publish(event)
