@@ -421,7 +421,7 @@ class AnalyserMod(AbstractMod):
         total_portfolios = df.set_index('date').sort_index()
         df.index = df['date']
         weekly_nav = df.resample("W").last().set_index("date").unit_net_value.dropna()
-        monthly_nav = df.resample("M").last().set_index("date").unit_net_value.dropna()
+        monthly_nav = df.resample("ME").last().set_index("date").unit_net_value.dropna()
         weekly_returns = (weekly_nav / weekly_nav.shift(1).fillna(1)).fillna(0) - 1
         monthly_returns = (monthly_nav / monthly_nav.shift(1).fillna(1)).fillna(0) - 1
 
@@ -448,8 +448,7 @@ class AnalyserMod(AbstractMod):
             market_values = total_portfolios.market_value
             summary["turnover"] = trades_values.sum() / market_values.mean() / 2
             avg_daily_turnover = (trades_values.groupby(trades.index.date).sum() / market_values / 2)
-            with pd.option_context('mode.use_inf_as_na', True):
-                summary["avg_daily_turnover"] = avg_daily_turnover.fillna(0).mean()
+            summary["avg_daily_turnover"] = avg_daily_turnover.fillna(0).mean()
         else:
             summary["turnover"] = np.nan
 
