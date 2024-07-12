@@ -38,7 +38,7 @@ class Executor(object):
     def run(self, bar_dict):
         conf = self._env.config.base
         events = list(self._env.event_source.events(conf.start_date, conf.end_date, conf.frequency))
-        for event in tqdm(events):
+        for event in tqdm(events, desc = self._env.config.backtest_name):
             if event.event_type == EVENT.TICK:
                 if self._ensure_before_trading(event):
                     self._split_and_publish(event)
