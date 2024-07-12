@@ -56,7 +56,7 @@ export_as_api(industry_code, name='industry_code')
 export_as_api(sector_code, name='sector_code')
 
 KSH_MIN_AMOUNT = 200
-ROUND_LOT_PRECISION = 1e-10
+ROUND_LOT_PRECISION = 1e-3
 
 
 
