@@ -95,7 +95,7 @@ def order_shares(id_or_ins, amount, price_or_style=None, price=None, style=None)
     *common_rules
 )
 @instype_singledispatch
-def order_value(id_or_ins, cash_amount, price_or_style=None, price=None, style=None):
+def order_value(id_or_ins, cash_amount, price_or_style=None, price=None, style=None, allow_fraction_lot=False):
     # type: (Union[str, Instrument], float, PRICE_OR_STYLE_TYPE, Optional[float], Optional[OrderStyle]) -> Optional[Order]
     """
     使用想要花费的金钱买入/卖出股票，而不是买入/卖出想要的股数，正数代表买入，负数代表卖出。股票的股数总是会被调整成对应的100的倍数（在A中国A股市场1手是100股）。

@@ -182,9 +182,9 @@ def stock_order_shares(id_or_ins, amount, price_or_style=None, price=None, style
 
 
 @order_value.register(INST_TYPE_IN_STOCK_ACCOUNT)
-def stock_order_value(id_or_ins, cash_amount, price_or_style=None, price=None, style=None):
+def stock_order_value(id_or_ins, cash_amount, price_or_style=None, price=None, style=None, allow_fraction_lot=False):
     account, position, ins = _get_account_position_ins(id_or_ins)
-    return _order_value(account, position, ins, cash_amount, cal_style(price, style, price_or_style))
+    return _order_value(account, position, ins, cash_amount, cal_style(price, style, price_or_style), allow_fraction_lot = allow_fraction_lot)
 
 
 @order_percent.register(INST_TYPE_IN_STOCK_ACCOUNT)
